@@ -27,8 +27,13 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.SignIn.RequireConfirmedEmail = false;
 });
 
+
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(op =>
+{
+    op.Conventions.AuthorizeFolder("/ClaimsManager");
+});
 
 var app = builder.Build();
 
