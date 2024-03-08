@@ -31,6 +31,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
     options.SignIn.RequireConfirmedPhoneNumber = false;
     options.SignIn.RequireConfirmedEmail = false;
+    options.User.RequireUniqueEmail = false;
 });
 
 
