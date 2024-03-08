@@ -1,0 +1,6 @@
+﻿@page
+@using System.Security.Claims
+@model Portfolio.Pages.Account.Manage.IndexModel
+@{
+}
+<h1>@User.Claims.Where(c => c.Type == ClaimTypes.Name).SingleOrDefault().Value</h1>
