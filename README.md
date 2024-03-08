@@ -17,8 +17,7 @@ Things I wanna implement in this project
 	Chat-Room => Group chat and one-to-one chat
 
 ToDo:
-1. Implement Authorization and Authentication 
-1.1 Use AspNet identity and create Register, Login, Profile
-1.2 Profiles can be PRIVITE
+08.03.2024
+1. Implement claims based auth.
 ...
 
