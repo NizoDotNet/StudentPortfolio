@@ -18,6 +18,7 @@ Things I wanna implement in this project
 
 ToDo:
 08.03.2024
-1. Implement claims based auth.
+1. Implement claims based auth. - completed
+2. 
 ...
 
