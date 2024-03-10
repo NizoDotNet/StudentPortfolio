@@ -19,6 +19,9 @@ Things I wanna implement in this project
 ToDo:
 08.03.2024
 1. Implement claims based auth. - completed
-2. 
+10.03.2024
+1. Create Profile and Manage Profile Page
+2. Users can change passwords and phone numbers.
+
 ...
 
