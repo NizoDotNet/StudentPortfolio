@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Portfolio.Claims;
 using Portfolio.Data;
 using Portfolio.Entities;
 
@@ -18,7 +19,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
 
 builder.Services.AddAuthorization(op =>
 {
-    op.AddPolicy("SuperAdminPolicy", polbuilder => polbuilder.RequireClaim("Role", new[] { "SuperAdmin" }));
+    op.AddPolicy("SuperAdminPolicy", polbuilder => polbuilder.RequireClaim("Role", MyClaimTypes.SuperAdmin));
 });
 
 builder.Services.Configure<IdentityOptions>(options =>

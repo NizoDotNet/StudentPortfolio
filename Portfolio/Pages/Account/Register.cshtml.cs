@@ -1,14 +1,10 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Text;
-using System.Security.Claims;
 using Portfolio.Entities;
-
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using Portfolio.Claims;
 namespace Portfolio.Pages.Account;
 
 public class RegisterModel : PageModel
@@ -101,7 +97,8 @@ public class RegisterModel : PageModel
             await _userStore.SetUserNameAsync(user, Input.Name, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
             var result = await _userManager.CreateAsync(user, Input.Password);
-            var standartClaim = new Claim("Role", "Student");
+
+            var standartClaim = new Claim("Role", MyClaimTypes.Student);
             await _userManager.AddClaimAsync(user, standartClaim);
 
             if (result.Succeeded)

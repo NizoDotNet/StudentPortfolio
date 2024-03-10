@@ -4,5 +4,8 @@
 }
 
 <div class="container">
-    Hello
+    @foreach(var i in Model.Claim)
+    {
+        <p>@i.Value</p>
+    }
 </div>
