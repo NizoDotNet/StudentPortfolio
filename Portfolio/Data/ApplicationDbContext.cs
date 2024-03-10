@@ -30,6 +30,12 @@ namespace Portfolio.Data
                 .WithOne(c => c.Teacher)
                 .HasForeignKey(c => c.TeacherId)
                 .IsRequired(false);
+
+            builder.Entity<AppUser>()
+                .HasMany(c => c.Classes)
+                .WithOne(c => c.Teacher)
+                .HasForeignKey(c => c.TeacherId)
+                .IsRequired(false);
         }
     }
 }

@@ -266,6 +266,11 @@ namespace Portfolio.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("TeacherId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasIndex("TeacherId");
+
                     b.HasDiscriminator().HasValue("AppUser");
                 });
 
@@ -338,6 +343,15 @@ namespace Portfolio.Migrations
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("Portfolio.Entities.AppUser", b =>
+                {
+                    b.HasOne("Portfolio.Entities.AppUser", "Teacher")
+                        .WithMany("Classes")
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("Portfolio.Entities.Subject", b =>
                 {
                     b.Navigation("LabWorks");
@@ -345,6 +359,8 @@ namespace Portfolio.Migrations
 
             modelBuilder.Entity("Portfolio.Entities.AppUser", b =>
                 {
+                    b.Navigation("Classes");
+
                     b.Navigation("Subjects");
                 });
 #pragma warning restore 612, 618
