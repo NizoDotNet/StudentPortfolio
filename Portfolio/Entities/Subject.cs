@@ -4,7 +4,7 @@ namespace Portfolio.Entities;
 
 public class Subject
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
 
     [StringLength(25)]
     public string Name { get; set; }

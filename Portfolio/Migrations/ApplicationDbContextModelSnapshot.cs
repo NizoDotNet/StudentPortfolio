@@ -222,9 +222,8 @@ namespace Portfolio.Migrations
 
             modelBuilder.Entity("Portfolio.Entities.LabWork", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<bool>("Completed")
                         .HasColumnType("tinyint(1)");
@@ -232,8 +231,8 @@ namespace Portfolio.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
+                    b.Property<string>("SubjectId")
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -244,9 +243,8 @@ namespace Portfolio.Migrations
 
             modelBuilder.Entity("Portfolio.Entities.Subject", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(25)

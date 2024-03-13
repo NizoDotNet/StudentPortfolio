@@ -19,7 +19,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
 
 builder.Services.AddAuthorization(op =>
 {
-    op.AddPolicy("SuperAdminPolicy", polbuilder => polbuilder.RequireClaim("Role", MyClaimTypes.SuperAdmin));
+    op.AddPolicy("SuperAdminPolicy", polbuilder => polbuilder.RequireClaim("Role", MyClaimValues.SuperAdmin));
 });
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -41,7 +41,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorPages(op =>
 {
-    op.Conventions.AuthorizeFolder("/ClaimsManager");
+    op.Conventions.AuthorizeFolder("/Account");
 });
 
 var app = builder.Build();

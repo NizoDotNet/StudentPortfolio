@@ -1,6 +1,6 @@
 ﻿namespace Portfolio.Claims;
 
-public static class MyClaimTypes
+public static class MyClaimValues
 {
     public static string Student = "Student";
     public static string SuperAdmin = "SuperAdmin";

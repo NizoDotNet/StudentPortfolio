@@ -98,7 +98,7 @@ public class RegisterModel : PageModel
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
             var result = await _userManager.CreateAsync(user, Input.Password);
 
-            var standartClaim = new Claim("Role", MyClaimTypes.Student);
+            var standartClaim = new Claim("Role", MyClaimValues.Student);
             await _userManager.AddClaimAsync(user, standartClaim);
 
             if (result.Succeeded)

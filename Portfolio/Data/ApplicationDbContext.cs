@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Portfolio.Data.Configurations;
 using Portfolio.Entities;
 
 namespace Portfolio.Data
@@ -17,25 +18,12 @@ namespace Portfolio.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            builder.ApplyConfiguration(new AppUserConfiguration());
+            builder.ApplyConfiguration(new SubjectConfiguration());
+
             base.OnModelCreating(builder);
 
-            builder.Entity<Subject>()
-                .HasMany<LabWork>(c => c.LabWorks)
-                .WithOne(c => c.Subject)
-                .HasForeignKey(c => c.SubjectId)
-                .IsRequired(false);
-
-            builder.Entity<AppUser>()
-                .HasMany(c => c.Subjects)
-                .WithOne(c => c.Teacher)
-                .HasForeignKey(c => c.TeacherId)
-                .IsRequired(false);
-
-            builder.Entity<AppUser>()
-                .HasMany(c => c.Classes)
-                .WithOne(c => c.Teacher)
-                .HasForeignKey(c => c.TeacherId)
-                .IsRequired(false);
         }
     }
 }
