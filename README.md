@@ -20,8 +20,9 @@ ToDo:
 08.03.2024
 1. Implement claims based auth. - completed
 10.03.2024
-1. Create Profile and Manage Profile Page
-2. Users can change passwords and phone numbers.
-
+1. Create Profile and Manage Profile Page - X
+2. Users can change passwords and phone numbers - X.
+13.03.2024
+1. Create SubjectManager pages 
 ...
 
