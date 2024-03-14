@@ -1,13 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Portfolio.Entities;
+namespace Portfolio.Models.LabWork;
 
-public class LabWork
+public class AddLabWorkDto
 {
-    [Key]
-    public int Id { get; set; }
+    [MinLength(3)]
     public string Name { get; set; }
     public bool Completed { get; set; } = false;
     public int SubjectId { get; set; }
-    public Subject? Subject { get; set; }
 }

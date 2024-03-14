@@ -1,0 +1,21 @@
+﻿@page
+@model Portfolio.Pages.SubjectManager.LabWorksManager.CreateLabWorkModel
+@{
+}
+
+
+<div class="container">
+    <form method="post">
+        <label asp-for="LabWorkDto.Name"></label>
+        <br />
+        <input asp-for="LabWorkDto.Name"/>
+        <br />
+        <label asp-for="LabWorkDto.Completed"></label>
+        <br />
+        <input asp-for="LabWorkDto.Completed" />
+        <br />
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    
+
+</div>

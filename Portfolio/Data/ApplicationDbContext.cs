@@ -22,6 +22,7 @@ namespace Portfolio.Data
 
             builder.ApplyConfiguration(new SubjectConfiguration());
             builder.ApplyConfiguration(new ClassConfiguration());
+            builder.ApplyConfiguration(new LabWorkConfiguration());
             base.OnModelCreating(builder);
 
         }

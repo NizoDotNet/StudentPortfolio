@@ -1,0 +1,13 @@
+﻿@page
+@model Portfolio.Pages.SubjectManager.CreateSubjectModel
+@{
+}
+<div class="container">
+    <form method="post" class="form-control">
+        <label class="form-label" asp-for="SubjectDto.Name"></label>
+        <br />
+        <input asp-for="SubjectDto.Name" />
+        <br />
+        <button class="btn btn-primary">Submit</button>
+    </form>
+</div>
