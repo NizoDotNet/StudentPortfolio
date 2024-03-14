@@ -1,6 +1,8 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Portfolio.Entities;
+using Portfolio.Models.Subject;
 using Portfolio.Repository;
 
 namespace Portfolio.Pages.SubjectManager;
@@ -8,16 +10,19 @@ namespace Portfolio.Pages.SubjectManager;
 public class IndexModel : PageModel
 {
     private readonly IRepository<Subject> _subjectRepository;
+    private readonly IMapper _mapper;
 
-    public IndexModel(IRepository<Subject> subjectRepository)
+    public IndexModel(IRepository<Subject> subjectRepository, IMapper mapper)
     {
-        this._subjectRepository = subjectRepository;
+        _subjectRepository = subjectRepository;
+        _mapper = mapper;
     }
 
     [BindProperty]
-    public IEnumerable<Subject> Subjects { get; set; }
-    public async Task OnGet()
+    public IEnumerable<SubjectDto> Subjects { get; set; }
+    public async Task OnGetAsync()
     {
-        Subjects = await _subjectRepository.GetAllAsync();
+        var subject = await _subjectRepository.GetAllAsync();
+        Subjects = _mapper.Map<IEnumerable<SubjectDto>>(subject);    
     }
 }

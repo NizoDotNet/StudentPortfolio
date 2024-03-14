@@ -34,6 +34,21 @@ namespace Portfolio.Migrations
                     b.ToTable("AppUserClass");
                 });
 
+            modelBuilder.Entity("ClassSubject", b =>
+                {
+                    b.Property<int>("ClassesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ClassesId", "SubjectsId");
+
+                    b.HasIndex("SubjectsId");
+
+                    b.ToTable("ClassSubject");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -244,12 +259,7 @@ namespace Portfolio.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SubjectId");
 
                     b.ToTable("Classes");
                 });
@@ -318,6 +328,21 @@ namespace Portfolio.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ClassSubject", b =>
+                {
+                    b.HasOne("Portfolio.Entities.Class", null)
+                        .WithMany()
+                        .HasForeignKey("ClassesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Portfolio.Entities.Subject", null)
+                        .WithMany()
+                        .HasForeignKey("SubjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -369,13 +394,6 @@ namespace Portfolio.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Portfolio.Entities.Class", b =>
-                {
-                    b.HasOne("Portfolio.Entities.Subject", null)
-                        .WithMany("Classes")
-                        .HasForeignKey("SubjectId");
-                });
-
             modelBuilder.Entity("Portfolio.Entities.LabWork", b =>
                 {
                     b.HasOne("Portfolio.Entities.Subject", "Subject")
@@ -396,8 +414,6 @@ namespace Portfolio.Migrations
 
             modelBuilder.Entity("Portfolio.Entities.Subject", b =>
                 {
-                    b.Navigation("Classes");
-
                     b.Navigation("LabWorks");
                 });
 

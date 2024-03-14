@@ -12,5 +12,9 @@ public class ClassConfiguration : IEntityTypeConfiguration<Class>
         builder
             .HasMany(c => c.Students)
             .WithMany(c => c.Classes);
+
+        builder
+            .HasMany(c => c.Subjects)
+            .WithMany(c => c.Classes);
     }
 }
