@@ -19,7 +19,7 @@ public class LabWorkService : IRepository<LabWork>
         await _db.SaveChangesAsync();
     }
 
-    public async Task Delete(string id)
+    public async Task Delete(int id)
     {
         var labwork = await _db.LabWorks
             .FirstOrDefaultAsync(x => x.Id == id);
@@ -38,13 +38,13 @@ public class LabWorkService : IRepository<LabWork>
             .ToListAsync();
     }
 
-    public async Task<LabWork> GetAsync(string id)
+    public async Task<LabWork> GetAsync(int id)
     {
         return await _db.LabWorks
             .FirstOrDefaultAsync(c => c.Id == id);  
     }
 
-    public async Task UpdateAsync(string id, LabWork entity)
+    public async Task UpdateAsync(int id, LabWork entity)
     {
         var lab = await _db.LabWorks.FirstOrDefaultAsync(c => c.Id == id);    
         if(lab != null)

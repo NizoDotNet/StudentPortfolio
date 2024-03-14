@@ -8,9 +8,6 @@ public class ClassConfiguration : IEntityTypeConfiguration<Class>
 {
     public void Configure(EntityTypeBuilder<Class> builder)
     {
-        builder
-            .HasMany(c => c.Subjects)
-            .WithMany(c => c.Classes);
 
         builder
             .HasMany(c => c.Students)

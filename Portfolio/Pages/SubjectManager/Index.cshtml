@@ -2,3 +2,19 @@
 @model Portfolio.Pages.SubjectManager.IndexModel
 @{
 }
+
+<h4>Subjects</h4>
+
+<a asp-page="CreateSubject">Add</a>
+
+@foreach(var sub in Model.Subjects)
+{
+    <table>
+        <tr>
+            <td>Name</td>
+        </tr>
+        <tr>
+            <td>@sub.Name</td>
+        </tr>
+    </table>
+}

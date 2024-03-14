@@ -19,7 +19,7 @@ public class SubjectService : IRepository<Subject>
         await _db.SaveChangesAsync();
     }
 
-    public async Task Delete(string id)
+    public async Task Delete(int id)
     {
         var sub = await _db
             .Subjects
@@ -39,14 +39,16 @@ public class SubjectService : IRepository<Subject>
             .ToListAsync();
     }
 
-    public async Task<Subject> GetAsync(string id)
+    public async Task<Subject> GetAsync(int id)
     {
         return await _db
             .Subjects
+            .Include(c => c.Teacher)
+            .Include(c => c.LabWorks)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task UpdateAsync(string id, Subject entity)
+    public async Task UpdateAsync(int id, Subject entity)
     {
         var sub = await _db
             .Subjects

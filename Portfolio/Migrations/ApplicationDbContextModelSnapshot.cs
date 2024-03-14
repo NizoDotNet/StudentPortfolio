@@ -21,8 +21,8 @@ namespace Portfolio.Migrations
 
             modelBuilder.Entity("AppUserClass", b =>
                 {
-                    b.Property<string>("ClassesId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("ClassesId")
+                        .HasColumnType("int");
 
                     b.Property<string>("StudentsId")
                         .HasColumnType("varchar(255)");
@@ -32,21 +32,6 @@ namespace Portfolio.Migrations
                     b.HasIndex("StudentsId");
 
                     b.ToTable("AppUserClass");
-                });
-
-            modelBuilder.Entity("ClassSubject", b =>
-                {
-                    b.Property<string>("ClassesId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("SubjectsId")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("ClassesId", "SubjectsId");
-
-                    b.HasIndex("SubjectsId");
-
-                    b.ToTable("ClassSubject");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -252,18 +237,28 @@ namespace Portfolio.Migrations
 
             modelBuilder.Entity("Portfolio.Entities.Class", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("SubjectId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("Classes");
                 });
 
             modelBuilder.Entity("Portfolio.Entities.LabWork", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<bool>("Completed")
                         .HasColumnType("tinyint(1)");
@@ -271,8 +266,8 @@ namespace Portfolio.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("SubjectId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -283,8 +278,9 @@ namespace Portfolio.Migrations
 
             modelBuilder.Entity("Portfolio.Entities.Subject", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasMaxLength(25)
@@ -318,21 +314,6 @@ namespace Portfolio.Migrations
                     b.HasOne("Portfolio.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("StudentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ClassSubject", b =>
-                {
-                    b.HasOne("Portfolio.Entities.Class", null)
-                        .WithMany()
-                        .HasForeignKey("ClassesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Portfolio.Entities.Subject", null)
-                        .WithMany()
-                        .HasForeignKey("SubjectsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -388,6 +369,13 @@ namespace Portfolio.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Portfolio.Entities.Class", b =>
+                {
+                    b.HasOne("Portfolio.Entities.Subject", null)
+                        .WithMany("Classes")
+                        .HasForeignKey("SubjectId");
+                });
+
             modelBuilder.Entity("Portfolio.Entities.LabWork", b =>
                 {
                     b.HasOne("Portfolio.Entities.Subject", "Subject")
@@ -408,6 +396,8 @@ namespace Portfolio.Migrations
 
             modelBuilder.Entity("Portfolio.Entities.Subject", b =>
                 {
+                    b.Navigation("Classes");
+
                     b.Navigation("LabWorks");
                 });
 

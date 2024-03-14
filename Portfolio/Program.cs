@@ -2,7 +2,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Claims;
 using Portfolio.Data;
+using Portfolio.DependencyInjection;
 using Portfolio.Entities;
+using Portfolio.Repository;
+using Portfolio.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
 builder.Services.AddAuthorization(op =>
 {
     op.AddPolicy("SuperAdminPolicy", polbuilder => polbuilder.RequireClaim("Role", MyClaimValues.SuperAdmin));
+    op.AddPolicy("TeacherPolicy", polbuilder => polbuilder.RequireClaim("Role", MyClaimValues.SuperAdmin, MyClaimValues.Teacher));
 });
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -41,7 +45,11 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorPages(op =>
 {
+    op.Conventions.AuthorizeFolder("/SubjectManager", "TeacherPolicy");
 });
+
+
+builder.Services.AddMyDependencies();
 
 var app = builder.Build();
 
