@@ -19,6 +19,36 @@ namespace Portfolio.Migrations
                 .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("AppUserClass", b =>
+                {
+                    b.Property<string>("ClassesId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("StudentsId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("ClassesId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("AppUserClass");
+                });
+
+            modelBuilder.Entity("ClassSubject", b =>
+                {
+                    b.Property<string>("ClassesId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("SubjectsId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("ClassesId", "SubjectsId");
+
+                    b.HasIndex("SubjectsId");
+
+                    b.ToTable("ClassSubject");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -220,6 +250,16 @@ namespace Portfolio.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Portfolio.Entities.Class", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Classes");
+                });
+
             modelBuilder.Entity("Portfolio.Entities.LabWork", b =>
                 {
                     b.Property<string>("Id")
@@ -264,12 +304,37 @@ namespace Portfolio.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("TeacherId")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasIndex("TeacherId");
-
                     b.HasDiscriminator().HasValue("AppUser");
+                });
+
+            modelBuilder.Entity("AppUserClass", b =>
+                {
+                    b.HasOne("Portfolio.Entities.Class", null)
+                        .WithMany()
+                        .HasForeignKey("ClassesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Portfolio.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ClassSubject", b =>
+                {
+                    b.HasOne("Portfolio.Entities.Class", null)
+                        .WithMany()
+                        .HasForeignKey("ClassesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Portfolio.Entities.Subject", null)
+                        .WithMany()
+                        .HasForeignKey("SubjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -341,15 +406,6 @@ namespace Portfolio.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("Portfolio.Entities.AppUser", b =>
-                {
-                    b.HasOne("Portfolio.Entities.AppUser", "Teacher")
-                        .WithMany("Classes")
-                        .HasForeignKey("TeacherId");
-
-                    b.Navigation("Teacher");
-                });
-
             modelBuilder.Entity("Portfolio.Entities.Subject", b =>
                 {
                     b.Navigation("LabWorks");
@@ -357,8 +413,6 @@ namespace Portfolio.Migrations
 
             modelBuilder.Entity("Portfolio.Entities.AppUser", b =>
                 {
-                    b.Navigation("Classes");
-
                     b.Navigation("Subjects");
                 });
 #pragma warning restore 612, 618

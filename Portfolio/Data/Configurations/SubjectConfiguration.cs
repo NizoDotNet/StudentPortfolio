@@ -8,9 +8,14 @@ public class SubjectConfiguration : IEntityTypeConfiguration<Subject>
 {
     public void Configure(EntityTypeBuilder<Subject> builder)
     {
-        builder.HasMany<LabWork>(c => c.LabWorks)
+        builder.HasMany(c => c.LabWorks)
                 .WithOne(c => c.Subject)
                 .HasForeignKey(c => c.SubjectId)
                 .IsRequired(false);
+
+        builder.HasOne(c => c.Teacher)
+            .WithMany(c => c.Subjects)
+            .HasForeignKey(c => c.TeacherId)
+            .IsRequired(false);
     }
 }

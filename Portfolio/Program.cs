@@ -41,7 +41,6 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorPages(op =>
 {
-    op.Conventions.AuthorizeFolder("/Account");
 });
 
 var app = builder.Build();

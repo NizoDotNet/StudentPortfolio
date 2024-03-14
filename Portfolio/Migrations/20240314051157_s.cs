@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace Portfolio.Migrations
 {
     /// <inheritdoc />
-    public partial class idtostring : Migration
+    public partial class s : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,7 +36,6 @@ namespace Portfolio.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false),
                     Discriminator = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false),
-                    TeacherId = table.Column<string>(type: "varchar(255)", nullable: true),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
@@ -55,11 +54,18 @@ namespace Portfolio.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_AspNetUsers_TeacherId",
-                        column: x => x.TeacherId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Classes",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Classes", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -194,6 +200,56 @@ namespace Portfolio.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "AppUserClass",
+                columns: table => new
+                {
+                    ClassesId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    StudentsId = table.Column<string>(type: "varchar(255)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUserClass", x => new { x.ClassesId, x.StudentsId });
+                    table.ForeignKey(
+                        name: "FK_AppUserClass_AspNetUsers_StudentsId",
+                        column: x => x.StudentsId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppUserClass_Classes_ClassesId",
+                        column: x => x.ClassesId,
+                        principalTable: "Classes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ClassSubject",
+                columns: table => new
+                {
+                    ClassesId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    SubjectsId = table.Column<string>(type: "varchar(255)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClassSubject", x => new { x.ClassesId, x.SubjectsId });
+                    table.ForeignKey(
+                        name: "FK_ClassSubject_Classes_ClassesId",
+                        column: x => x.ClassesId,
+                        principalTable: "Classes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClassSubject_Subjects_SubjectsId",
+                        column: x => x.SubjectsId,
+                        principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "LabWorks",
                 columns: table => new
                 {
@@ -212,6 +268,11 @@ namespace Portfolio.Migrations
                         principalColumn: "Id");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppUserClass_StudentsId",
+                table: "AppUserClass",
+                column: "StudentsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -245,15 +306,15 @@ namespace Portfolio.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_TeacherId",
-                table: "AspNetUsers",
-                column: "TeacherId");
-
-            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClassSubject_SubjectsId",
+                table: "ClassSubject",
+                column: "SubjectsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LabWorks_SubjectId",
@@ -270,6 +331,9 @@ namespace Portfolio.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AppUserClass");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -285,10 +349,16 @@ namespace Portfolio.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ClassSubject");
+
+            migrationBuilder.DropTable(
                 name: "LabWorks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Classes");
 
             migrationBuilder.DropTable(
                 name: "Subjects");

@@ -6,7 +6,6 @@ using Portfolio.Entities;
 
 namespace Portfolio.Pages.ClaimsManager;
 
-[Authorize(Policy = "SuperAdminPolicy")]
 public class IndexModel : PageModel
 {
     public UserManager<AppUser> UserManager { get; set; }

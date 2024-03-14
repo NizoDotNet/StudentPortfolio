@@ -15,13 +15,13 @@ namespace Portfolio.Data
 
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<LabWork> LabWorks { get; set; }
+        public DbSet<Class> Classes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
-            builder.ApplyConfiguration(new AppUserConfiguration());
             builder.ApplyConfiguration(new SubjectConfiguration());
-
+            builder.ApplyConfiguration(new ClassConfiguration());
             base.OnModelCreating(builder);
 
         }

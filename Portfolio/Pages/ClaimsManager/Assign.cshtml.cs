@@ -10,7 +10,6 @@ using System.Security.Claims;
 
 namespace Portfolio.Pages.ClaimsManager;
 
-[Authorize(Policy = "SuperAdminPolicy")]
 public class AssignModel : PageModel
 {
     private readonly UserManager<AppUser> _userManager;
