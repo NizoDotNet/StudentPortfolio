@@ -19,13 +19,20 @@ public class SubjectModel : PageModel
     }
 
     [BindProperty]
-    public SubjectDto Subject { get; set; }
+    public SubjectDto SubjectDto { get; set; }
+    public Subject Subject { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int id)
     {
-        var sub = await _subjectRepository.GetAsync(id);
-        if (sub == null) return NotFound();
-        Subject = _mapper.Map<SubjectDto>(sub);    
+        Subject = await _subjectRepository.GetAsync(id);
+        if (Subject == null) return NotFound();
+        SubjectDto = _mapper.Map<SubjectDto>(Subject);    
         return Page();
+    }
+
+    public async Task<IActionResult> OnPostDeleteAsync()
+    {
+        await _subjectRepository.Delete(SubjectDto.Id);
+        return RedirectToPage("Index");
     }
 }

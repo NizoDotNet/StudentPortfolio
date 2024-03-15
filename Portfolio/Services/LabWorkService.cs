@@ -51,6 +51,8 @@ public class LabWorkService : IRepository<LabWork>
         {
             lab.Completed = entity.Completed;
             lab.Name = entity.Name;
+            await _db.SaveChangesAsync();
+
         }
     }
 }

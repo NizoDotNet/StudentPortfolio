@@ -8,7 +8,7 @@ public class Subject
 
     public int Id { get; set; }
 
-    [StringLength(25)]
+    [Length(3, 25)]
     public string Name { get; set; }
 
     public IList<LabWork> LabWorks { get; set; }

@@ -56,6 +56,7 @@ public class SubjectService : IRepository<Subject>
         if(sub != null)
         {
             sub.Name = entity.Name;
+            await _db.SaveChangesAsync();
         }
     }
 }
