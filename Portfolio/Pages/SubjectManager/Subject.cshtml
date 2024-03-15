@@ -5,5 +5,9 @@
 
 <div class="container">
     <h5>@Model.Subject.Name</h5>
-    <a asp-page="LabWorksManager/AddLabWork">Add Lab Works</a>
+    @foreach(var lab in Model.Subject.LabWorks)
+    {
+        <p>@lab.Name</p>
+    }
+    <a asp-page="LabWorksManager/CreateLabWork">Add Lab Works</a>
 </div>
