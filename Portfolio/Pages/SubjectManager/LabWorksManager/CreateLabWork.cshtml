@@ -6,6 +6,10 @@
 
 <div class="container">
     <form method="post">
+        <label>Select Subject</label>
+        <select asp-items="Model.Subjects" asp-for="SubjectId">
+        </select>
+        <br />
         <label asp-for="LabWorkDto.Name"></label>
         <br />
         <input asp-for="LabWorkDto.Name"/>

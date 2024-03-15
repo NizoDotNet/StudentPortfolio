@@ -1,0 +1,27 @@
+﻿@using Portfolio.Claims
+@using Portfolio.Entities
+@using System.Security.Claims
+@inject SignInManager<AppUser> _signInManager;
+
+
+<ul class="navbar-nav">
+    @if (_signInManager.IsSignedIn(User) &&
+         User.Claims
+        .Where(c => c.Type == "Role")
+        .Select(c => c.Value == MyClaimValues.SuperAdmin ||
+                     c.Value == MyClaimValues.Teacher) != null)
+    {
+        <li class="nav-item dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Manage Subject</button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" asp-page="/SubjectManager/Index">Subjects</a></li>
+                <li><a class="dropdown-item" asp-page="/SubjectManager/CreateSubject">Create Subject</a></li>
+                <li><a class="dropdown-item" asp-page="/SubjectManager/LabWorksManager/Index">Lab-Works</a></li>
+                <li><a class="dropdown-item" asp-page="/SubjectManager/LabWorksManager/CreateLabWork">Create Lab-Work</a></li>
+
+
+            </ul>
+        </li>
+    }
+</ul>
+
