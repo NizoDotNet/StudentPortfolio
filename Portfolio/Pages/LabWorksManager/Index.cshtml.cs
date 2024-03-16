@@ -5,7 +5,7 @@ using Portfolio.Entities;
 using Portfolio.Models.LabWork;
 using Portfolio.Repository;
 
-namespace Portfolio.Pages.SubjectManager.LabWorksManager;
+namespace Portfolio.Pages.LabWorksManager;
 
 public class IndexModel(IRepository<LabWork> labRepository, IMapper mapper) : PageModel
 {

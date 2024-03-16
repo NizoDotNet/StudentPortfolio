@@ -8,35 +8,30 @@ using Portfolio.Models.LabWork;
 using Portfolio.Repository;
 using System.ComponentModel.DataAnnotations;
 
-namespace Portfolio.Pages.SubjectManager.LabWorksManager;
+namespace Portfolio.Pages.LabWorksManager;
+
 [ModelStateFilter]
-public class UpdateModel(IRepository<LabWork> labRepository,
-    IMapper mapper,
-    IRepository<Subject> subjectRepository) : PageModel
+public class CreateLabWorkModel(IRepository<LabWork> labRepository,
+    IRepository<Subject> subjectRepository,
+    IMapper mapper) : PageModel
 {
     private readonly IRepository<LabWork> _labRepository = labRepository;
-    private readonly IMapper _mapper = mapper;
     private readonly IRepository<Subject> _subjectRepository = subjectRepository;
+    private readonly IMapper _mapper = mapper;
 
     public SelectList Subjects { get; set; }
     [BindProperty]
-    public UpdateLabWorkViewModel LabWorkVM { get; set; }
-
-    public async Task<IActionResult> OnGetAsync(int id)
+    public AddLabWorkViewModel LabWorkVM { get; set; }
+    public async Task OnGetAsync()
     {
-        var lab = await _labRepository.GetAsync(id);
-        if(lab == null) return NotFound();
-        LabWorkVM = _mapper.Map<UpdateLabWorkViewModel>(lab);
         var subs = await _subjectRepository.GetAllAsync();
         Subjects = new(subs, nameof(Subject.Id), nameof(Subject.Name));
-        return Page();
-
     }
 
     public async Task<IActionResult> OnPostAsync()
     {
         var lab = _mapper.Map<LabWork>(LabWorkVM);
-        await _labRepository.UpdateAsync(LabWorkVM.Id, lab);
-        return RedirectToPage("Index");
+        await _labRepository.CreateAsync(lab);
+        return Redirect("Index");
     }
 }
