@@ -11,11 +11,11 @@ public class AutoMapperProfile : Profile
     public AutoMapperProfile()
     {
         
-        CreateMap<AddSubjectDto, Subject>().ReverseMap();
-        CreateMap<SubjectDto, Subject>().ReverseMap();
-        CreateMap<ClassDto, Class>().ReverseMap();
-        CreateMap<LabWorkDto, LabWork>().ReverseMap();
-        CreateMap<AddLabWorkDto, LabWork>().ReverseMap();
+        CreateMap<AddSubjectViewModel, Subject>().ReverseMap();
+        CreateMap<SubjectViewModel, Subject>().ReverseMap();
+        CreateMap<ClassViewModel, Class>().ReverseMap();
+        CreateMap<LabWorkViewModel, LabWork>().ReverseMap();
+        CreateMap<AddLabWorkViewModel, LabWork>().ReverseMap();
 
     }
 }

@@ -13,10 +13,10 @@ public class IndexModel(IRepository<LabWork> labRepository, IMapper mapper) : Pa
     private readonly IMapper _mapper = mapper;
 
     [BindProperty]
-    public IEnumerable<LabWorkDto> LabWorkDtos{ get; set; }
+    public IEnumerable<LabWorkViewModel> LabWorkVM { get; set; }
     public async Task OnGetAsync()
     {
         var labs = await _labRepository.GetAllAsync();
-        LabWorkDtos = _mapper.Map<IEnumerable<LabWorkDto>>(labs);
+        LabWorkVM = _mapper.Map<IEnumerable<LabWorkViewModel>>(labs);
     }
 }

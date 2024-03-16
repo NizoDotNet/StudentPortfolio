@@ -12,7 +12,7 @@ public class CreateSubjectModel(IRepository<Subject> subjectRepository, IMapper 
     private readonly IRepository<Subject> _subjectRepository = subjectRepository;
     private readonly IMapper _mapper = mapper;
     [BindProperty]
-    public AddSubjectDto SubjectDto { get; set; }
+    public AddSubjectViewModel SubjectVM { get; set; }
 
     public async Task OnGetAsync()
     {
@@ -21,7 +21,7 @@ public class CreateSubjectModel(IRepository<Subject> subjectRepository, IMapper 
 
     public async Task<IActionResult> OnPostAsync()
     {
-        Subject subject = _mapper.Map<Subject>(SubjectDto);
+        Subject subject = _mapper.Map<Subject>(SubjectVM);
         await _subjectRepository.CreateAsync(subject);
         return RedirectToPage("Index");
     }

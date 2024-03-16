@@ -3,6 +3,7 @@
 @{
 }
 
-@foreach(var i in Model.LabWorkDtos){
-    <p>@i.Name</p>
+@foreach (var i in Model.LabWorkVM)
+{
+    <a asp-page="LabWork" asp-route-id="@i.Id">@i.Name</a>
 }

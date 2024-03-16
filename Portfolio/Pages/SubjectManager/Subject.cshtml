@@ -4,11 +4,11 @@
 }
 
 <div class="container">
-    <h5>@Model.Subject.Name</h5>
-    @foreach(var lab in Model.Subject.LabWorks)
+    <h5>@Model.SubjectVM.Name</h5>
+    @foreach (var lab in Model.SubjectVM.LabWorks)
     {
         <p>@lab.Name</p>
     }
-    <a asp-page="Update" asp-route-id="@Model.Subject.Id" class="btn">Update</a>
+    <a asp-page="Update" asp-route-id="@Model.SubjectVM.Id" class="btn">Update</a>
     <form method="post" asp-page-handler="Delete"><button class="btn btn-danger">Delete</button></form>
 </div>

@@ -21,7 +21,7 @@ public class CreateLabWorkModel(IRepository<LabWork> labRepository,
 
     public SelectList Subjects { get; set; }
     [BindProperty]
-    public AddLabWorkDto LabWorkDto { get; set; }
+    public AddLabWorkViewModel LabWorkVM { get; set; }
     [BindProperty, Required]
     public string SubjectId { get; set; }
     public async Task OnGetAsync()
@@ -30,10 +30,11 @@ public class CreateLabWorkModel(IRepository<LabWork> labRepository,
         Subjects = new(subs, nameof(Subject.Id), nameof(Subject.Name));
     }
 
-    public async Task OnPostAsync()
+    public async Task<IActionResult> OnPostAsync()
     {
-        LabWorkDto.SubjectId = int.Parse(SubjectId);
-        var lab = _mapper.Map<LabWork>(LabWorkDto);
+        LabWorkVM.SubjectId = int.Parse(SubjectId);
+        var lab = _mapper.Map<LabWork>(LabWorkVM);
         await _labRepository.CreateAsync(lab);
+        return Redirect("Index");
     }
 }

@@ -19,10 +19,10 @@ public class IndexModel : PageModel
     }
 
     [BindProperty]
-    public IEnumerable<SubjectDto> Subjects { get; set; }
+    public IEnumerable<SubjectViewModel> Subjects { get; set; }
     public async Task OnGetAsync()
     {
         var subject = await _subjectRepository.GetAllAsync();
-        Subjects = _mapper.Map<IEnumerable<SubjectDto>>(subject);    
+        Subjects = _mapper.Map<IEnumerable<SubjectViewModel>>(subject);    
     }
 }
