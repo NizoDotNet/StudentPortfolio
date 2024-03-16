@@ -1,0 +1,23 @@
+﻿@page "{id}"
+@model Portfolio.Pages.ClassManager.ClassModel
+@{
+    var cls = Model.ClassVM;
+    var clsSubjects = cls.Subjects;
+    var clsUsers = cls.Students;
+}
+
+<div class="container">
+    <p>@cls.Name</p>
+    <h5>Subjects</h5>
+    @foreach(var sub in clsSubjects)
+    {
+        <a class="" asp-page="/SubjectManager/Subject" asp-route-id="@sub.Id">@sub.Name</a>
+        <br />
+    }
+    <h5>Students</h5>
+    @foreach (var std in clsUsers)
+    {
+        <a class="" asp-route-id="@std.Id">@std.UserName</a>
+        <br />
+    }
+</div>

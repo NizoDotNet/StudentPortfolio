@@ -42,7 +42,7 @@ public class CreateModel(IRepository<Class> _classRepository,
         await AddUsersToClassAsync(cls);
         await AddSubjectsToClassAsync(cls);
         await _classRepository.CreateAsync(cls);
-        return RedirectToPage("Index")
+        return RedirectToPage("Index");
     }
 
     private async Task AddUsersToClassAsync(Class cls)
