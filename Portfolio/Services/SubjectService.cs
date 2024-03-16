@@ -19,9 +19,14 @@ public class SubjectService(ApplicationDbContext db) : ISubjectRepository
     {
         var sub = await _db
             .Subjects
+            .Include(c => c.LabWorks)
             .FirstOrDefaultAsync(x => x.Id == id);
         if (sub != null)
         {
+            foreach (var lab in sub.LabWorks)
+            {
+                _db.LabWorks.Remove(lab);
+            }
             _db.Subjects.Remove(sub);
             await _db.SaveChangesAsync();
         }
