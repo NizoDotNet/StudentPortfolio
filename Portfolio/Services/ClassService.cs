@@ -63,4 +63,6 @@ public class ClassService(ApplicationDbContext db) : IRepository<Class>
             await _db.SaveChangesAsync();
         }
     }
+    public async Task SaveChangesAsync() => await _db.SaveChangesAsync();
+
 }

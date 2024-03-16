@@ -5,7 +5,7 @@ using Portfolio.Repository;
 
 namespace Portfolio.Services;
 
-public class SubjectService(ApplicationDbContext db) : IRepository<Subject>
+public class SubjectService(ApplicationDbContext db) : ISubjectRepository
 {
     private readonly ApplicationDbContext _db = db;
 
@@ -43,6 +43,8 @@ public class SubjectService(ApplicationDbContext db) : IRepository<Subject>
             .Include(c => c.LabWorks)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
+
+    public async Task SaveChangesAsync() => await _db.SaveChangesAsync();
 
     public async Task UpdateAsync(int id, Subject entity)
     {

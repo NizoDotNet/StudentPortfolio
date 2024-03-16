@@ -53,4 +53,6 @@ public class LabWorkService(ApplicationDbContext db) : IRepository<LabWork>
 
         }
     }
+    public async Task SaveChangesAsync() => await _db.SaveChangesAsync();
+
 }

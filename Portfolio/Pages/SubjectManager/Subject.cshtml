@@ -8,6 +8,7 @@
     @foreach (var lab in Model.SubjectVM.LabWorks)
     {
         <a asp-page="/LabWorksManager/LabWork" asp-route-id="@lab.Id">@lab.Name</a>
+        <br />
     }
     <a asp-page="Update" asp-route-id="@Model.SubjectVM.Id" class="btn">Update</a>
     <form method="post" asp-page-handler="Delete"><button class="btn btn-danger">Delete</button></form>

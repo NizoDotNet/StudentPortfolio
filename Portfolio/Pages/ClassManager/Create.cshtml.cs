@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Entities;
 using Portfolio.Filter;
+using Portfolio.Helper;
 using Portfolio.Models.Class;
 using Portfolio.Repository;
 
@@ -15,7 +16,8 @@ namespace Portfolio.Pages.ClassManager;
 public class CreateModel(IRepository<Class> _classRepository,
     IMapper _mapper,
     IRepository<Subject> _subjectRepository,
-    UserManager<AppUser> _userManager) : PageModel
+    UserManager<AppUser> _userManager,
+    AddToCollection _helper) : PageModel
 {
     [BindProperty]
     public ClassViewModel ClassVM { get; set; }
@@ -40,7 +42,7 @@ public class CreateModel(IRepository<Class> _classRepository,
         cls.Students = new List<AppUser>();
         cls.Subjects = new List<Subject>(); 
         await AddUsersToClassAsync(cls);
-        await AddSubjectsToClassAsync(cls);
+        await _helper.Add(cls.Subjects, _subjectRepository, SubjectIds);
         await _classRepository.CreateAsync(cls);
         return RedirectToPage("Index");
     }
@@ -54,14 +56,6 @@ public class CreateModel(IRepository<Class> _classRepository,
         }
     }
 
-    private async Task AddSubjectsToClassAsync(Class cls)
-    {
-        for(int i = 0; i < SubjectIds.Count;i++)
-        {
-            var sub = await _subjectRepository.GetAsync(SubjectIds[i]);
-            cls.Subjects.Add(sub);
-        }
-    }
 
 
 }
