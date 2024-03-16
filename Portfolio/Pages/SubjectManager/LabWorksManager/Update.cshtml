@@ -1,0 +1,23 @@
+﻿@page
+@model Portfolio.Pages.SubjectManager.LabWorksManager.UpdateModel
+@{
+}
+
+<form method="post">
+    <input readonly hidden asp-for="LabWorkVM.Id" />
+    <p>Subject: @LabWorkVM.Subject.Name</p>
+    <label>Select Subject</label>
+    <select asp-items="Model.Subjects" asp-for="LabWorkVM.Id">
+        <option></option>
+    </select>
+    <br />
+    <label asp-for="LabWorkVM.Name"></label>
+    <br />
+    <input asp-for="LabWorkVM.Name" />
+    <br />
+    <label asp-for="LabWorkVM.Completed"></label>
+    <br />
+    <input asp-for="LabWorkVM.Completed" />
+    <br />
+    <button class="btn btn-primary">Submit</button>
+</form>

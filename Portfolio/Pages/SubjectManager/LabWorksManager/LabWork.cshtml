@@ -1,0 +1,12 @@
+﻿@page "{id}"
+@model Portfolio.Pages.SubjectManager.LabWorksManager.LabWorkModel
+@{
+    var lab = Model.LabWorkVM;
+}
+
+<div class="container">
+    <p>@lab.Name</p>
+    <p>@lab.Completed</p>
+    <a asp-page="Update" asp-route-id="@lab.Id" class="btn">Update</a>
+    <form method="post" asp-page-handler="Delete"><button class="btn btn-danger">Delete</button></form>
+</div>

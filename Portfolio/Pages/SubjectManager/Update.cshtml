@@ -1,0 +1,15 @@
+﻿@page "{id}"
+@model Portfolio.Pages.SubjectManager.UpdateModel
+@{
+}
+
+<div class="container">
+    <form method="post" class="form-control">
+        <input asp-for="SubjectVM.Id" hidden readonly />
+        <label class="form-label" asp-for="SubjectVM.Name"></label>
+        <br />
+        <input asp-for="SubjectVM.Name" />
+        <br />
+        <button class="btn btn-primary">Submit</button>
+    </form>
+</div>
