@@ -16,6 +16,8 @@ public class AutoMapperProfile : Profile
         CreateMap<ClassViewModel, Class>().ReverseMap();
         CreateMap<LabWorkViewModel, LabWork>().ReverseMap();
         CreateMap<AddLabWorkViewModel, LabWork>().ReverseMap();
+        CreateMap<UpdateLabWorkViewModel, LabWork>().ReverseMap();
+
 
     }
 }

@@ -12,11 +12,11 @@ namespace Portfolio.Pages.SubjectManager.LabWorksManager;
 
 [ModelStateFilter]
 public class CreateLabWorkModel(IRepository<LabWork> labRepository,
-    IRepository<Subject> sujectRepository,
+    IRepository<Subject> subjectRepository,
     IMapper mapper) : PageModel
 {
     private readonly IRepository<LabWork> _labRepository = labRepository;
-    private readonly IRepository<Subject> _sujectRepository = sujectRepository;
+    private readonly IRepository<Subject> _subjectRepository = subjectRepository;
     private readonly IMapper _mapper = mapper;
 
     public SelectList Subjects { get; set; }
@@ -26,7 +26,7 @@ public class CreateLabWorkModel(IRepository<LabWork> labRepository,
     public string SubjectId { get; set; }
     public async Task OnGetAsync()
     {
-        var subs = await _sujectRepository.GetAllAsync();
+        var subs = await _subjectRepository.GetAllAsync();
         Subjects = new(subs, nameof(Subject.Id), nameof(Subject.Name));
     }
 
