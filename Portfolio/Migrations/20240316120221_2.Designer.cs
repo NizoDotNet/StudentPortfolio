@@ -11,8 +11,8 @@ using Portfolio.Data;
 namespace Portfolio.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240314161444_tes")]
-    partial class tes
+    [Migration("20240316120221_2")]
+    partial class _2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -260,6 +260,7 @@ namespace Portfolio.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
@@ -277,6 +278,7 @@ namespace Portfolio.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("SubjectId")
@@ -296,8 +298,8 @@ namespace Portfolio.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(25)
-                        .HasColumnType("varchar(25)");
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("TeacherId")
                         .HasColumnType("varchar(255)");
@@ -401,9 +403,7 @@ namespace Portfolio.Migrations
                 {
                     b.HasOne("Portfolio.Entities.Subject", "Subject")
                         .WithMany("LabWorks")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubjectId");
 
                     b.Navigation("Subject");
                 });

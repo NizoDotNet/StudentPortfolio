@@ -257,6 +257,7 @@ namespace Portfolio.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
@@ -274,6 +275,7 @@ namespace Portfolio.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("SubjectId")
@@ -293,8 +295,8 @@ namespace Portfolio.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(25)
-                        .HasColumnType("varchar(25)");
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("TeacherId")
                         .HasColumnType("varchar(255)");

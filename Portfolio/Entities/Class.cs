@@ -6,7 +6,7 @@ public class Class
 {
     [Key]
     public int Id { get; set; }
-    [Required, MaxLength(30)]
+    [Required]
     public string Name { get; set; }
     public IList<AppUser> Students { get; set; } = [];
     public IList<Subject> Subjects { get; set; } = [];

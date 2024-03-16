@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace Portfolio.Migrations
 {
     /// <inheritdoc />
-    public partial class idtoint : Migration
+    public partial class _2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,6 +54,20 @@ namespace Portfolio.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Classes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Classes", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -174,7 +188,7 @@ namespace Portfolio.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: true),
+                    Name = table.Column<string>(type: "longtext", nullable: false),
                     TeacherId = table.Column<string>(type: "varchar(255)", nullable: true)
                 },
                 constraints: table =>
@@ -184,47 +198,6 @@ namespace Portfolio.Migrations
                         name: "FK_Subjects_AspNetUsers_TeacherId",
                         column: x => x.TeacherId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Classes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true),
-                    SubjectId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Classes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Classes_Subjects_SubjectId",
-                        column: x => x.SubjectId,
-                        principalTable: "Subjects",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "LabWorks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true),
-                    Completed = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LabWorks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_LabWorks_Subjects_SubjectId",
-                        column: x => x.SubjectId,
-                        principalTable: "Subjects",
                         principalColumn: "Id");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
@@ -251,6 +224,52 @@ namespace Portfolio.Migrations
                         principalTable: "Classes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ClassSubject",
+                columns: table => new
+                {
+                    ClassesId = table.Column<int>(type: "int", nullable: false),
+                    SubjectsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClassSubject", x => new { x.ClassesId, x.SubjectsId });
+                    table.ForeignKey(
+                        name: "FK_ClassSubject_Classes_ClassesId",
+                        column: x => x.ClassesId,
+                        principalTable: "Classes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClassSubject_Subjects_SubjectsId",
+                        column: x => x.SubjectsId,
+                        principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "LabWorks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false),
+                    Completed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LabWorks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LabWorks_Subjects_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subjects",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -297,9 +316,9 @@ namespace Portfolio.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Classes_SubjectId",
-                table: "Classes",
-                column: "SubjectId");
+                name: "IX_ClassSubject_SubjectsId",
+                table: "ClassSubject",
+                column: "SubjectsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LabWorks_SubjectId",
@@ -334,13 +353,16 @@ namespace Portfolio.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ClassSubject");
+
+            migrationBuilder.DropTable(
                 name: "LabWorks");
 
             migrationBuilder.DropTable(
-                name: "Classes");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Classes");
 
             migrationBuilder.DropTable(
                 name: "Subjects");

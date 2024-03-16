@@ -7,8 +7,7 @@ public class Subject
     [Key]
 
     public int Id { get; set; }
-
-    [Length(3, 25)]
+    [Required]
     public string Name { get; set; }
 
     public IList<LabWork> LabWorks { get; set; }

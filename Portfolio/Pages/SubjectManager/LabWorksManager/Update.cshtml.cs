@@ -21,8 +21,7 @@ public class UpdateModel(IRepository<LabWork> labRepository,
     public SelectList Subjects { get; set; }
     [BindProperty]
     public UpdateLabWorkViewModel LabWorkVM { get; set; }
-    [BindProperty, Required]
-    public int SubjectId { get; set; }
+
     public async Task<IActionResult> OnGetAsync(int id)
     {
         var lab = await _labRepository.GetAsync(id);
@@ -36,7 +35,6 @@ public class UpdateModel(IRepository<LabWork> labRepository,
 
     public async Task<IActionResult> OnPostAsync()
     {
-        LabWorkVM.SubjectId = SubjectId;
         var lab = _mapper.Map<LabWork>(LabWorkVM);
         await _labRepository.UpdateAsync(LabWorkVM.Id, lab);
         return RedirectToPage("Index");

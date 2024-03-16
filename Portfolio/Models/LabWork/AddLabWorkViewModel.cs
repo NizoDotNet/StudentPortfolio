@@ -8,5 +8,6 @@ public class AddLabWorkViewModel
     [MinLength(3)]
     public string Name { get; set; }
     public bool Completed { get; set; } = false;
+    [Required]
     public int SubjectId { get; set; }
 }

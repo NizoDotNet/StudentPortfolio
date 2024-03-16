@@ -5,10 +5,9 @@
 
 <form method="post">
     <input readonly hidden asp-for="LabWorkVM.Id" />
-    <p>Subject: @LabWorkVM.Subject.Name</p>
     <label>Select Subject</label>
     <select asp-items="Model.Subjects" asp-for="LabWorkVM.Id">
-        <option></option>
+        <option value="@Model.LabWorkVM.SubjectId">@Model.LabWorkVM.Subject.Name</option>
     </select>
     <br />
     <label asp-for="LabWorkVM.Name"></label>

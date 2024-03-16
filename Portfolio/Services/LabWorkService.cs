@@ -41,6 +41,7 @@ public class LabWorkService : IRepository<LabWork>
     public async Task<LabWork> GetAsync(int id)
     {
         return await _db.LabWorks
+            .Include(c => c.Subject)
             .FirstOrDefaultAsync(c => c.Id == id);  
     }
 

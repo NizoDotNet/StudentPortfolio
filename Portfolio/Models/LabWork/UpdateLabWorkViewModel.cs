@@ -9,6 +9,7 @@ public class UpdateLabWorkViewModel
     [Required, MinLength(3)]
     public string Name { get; set; }
     public bool Completed { get; set; } = false;
+    [Required]
     public int SubjectId { get; set; }
     public SubjectViewModel Subject { get; set; }
 
