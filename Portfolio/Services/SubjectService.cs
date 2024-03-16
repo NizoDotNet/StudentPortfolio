@@ -5,14 +5,10 @@ using Portfolio.Repository;
 
 namespace Portfolio.Services;
 
-public class SubjectService : IRepository<Subject>
+public class SubjectService(ApplicationDbContext db) : IRepository<Subject>
 {
-    private readonly ApplicationDbContext _db;
+    private readonly ApplicationDbContext _db = db;
 
-    public SubjectService(ApplicationDbContext db)
-    {
-        this._db = db;
-    }
     public async Task CreateAsync(Subject entity)
     {
         await _db.Subjects.AddAsync(entity);

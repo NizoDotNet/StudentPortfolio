@@ -11,6 +11,8 @@ public static class MyDependencies
     {
         services.AddScoped<IRepository<Subject>, SubjectService>();
         services.AddScoped<IRepository<LabWork>, LabWorkService>();
+        services.AddScoped<IRepository<Class>, ClassService>();
+
         services.AddAutoMapper(typeof(AutoMapperProfile.AutoMapperProfile));
     }
 }

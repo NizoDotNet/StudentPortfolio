@@ -5,14 +5,10 @@ using Portfolio.Repository;
 
 namespace Portfolio.Services;
 
-public class LabWorkService : IRepository<LabWork>
+public class LabWorkService(ApplicationDbContext db) : IRepository<LabWork>
 {
-    private readonly ApplicationDbContext _db;
+    private readonly ApplicationDbContext _db = db;
 
-    public LabWorkService(ApplicationDbContext db)
-    {
-        this._db = db;
-    }
     public async Task CreateAsync(LabWork entity)
     {
         await _db.LabWorks.AddAsync(entity);
