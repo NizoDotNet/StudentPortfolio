@@ -2,3 +2,21 @@
 @model Portfolio.Pages.ClassManager.CreateModel
 @{
 }
+
+<form method="post" class="form-control">
+    <label class="form-control" asp-for="ClassVM.Name"></label>
+    <br />
+
+    <input class="form-control" asp-for="ClassVM.Name"/> 
+    <br />
+
+    <select asp-items="Model.SubjectsList" asp-for="SubjectIds">
+        <option></option>
+    </select>
+    <br />
+    <select asp-items="Model.UsersList" asp-for="UsersIds">
+        <option></option>
+    </select>
+    <br />
+    <button class="btn btn-primary">Submit</button>
+</form>
