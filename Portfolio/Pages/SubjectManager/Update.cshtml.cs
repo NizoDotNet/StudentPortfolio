@@ -11,9 +11,7 @@ namespace Portfolio.Pages.SubjectManager;
 
 [ModelStateFilter]
 public class UpdateModel(IRepository<Subject> _subjectRepository, 
-    IMapper _mapper,
-    IRepository<LabWork> _labRepositroy,
-    ILogger<UpdateModel> _logger) : PageModel
+    IMapper _mapper) : PageModel
 {
 
     [BindProperty]
@@ -34,13 +32,4 @@ public class UpdateModel(IRepository<Subject> _subjectRepository,
         return RedirectToPage("Index");
     }
 
-    public async Task<IActionResult> OnPostDeleteAsync()
-    {
-        for (int i = 0; i < SubjectVM.LabWorks.Count; i++)
-        {
-            _logger.LogInformation("{LabWorkId} {LabName}", 
-                SubjectVM.LabWorks[i].Id, SubjectVM.LabWorks[i].Name);
-        }
-        return Page();
-    }
 }
