@@ -39,7 +39,6 @@ public class SubjectService(ApplicationDbContext db) : ISubjectRepository
     {
         return await _db
             .Subjects
-            .Include(c => c.Teacher)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 

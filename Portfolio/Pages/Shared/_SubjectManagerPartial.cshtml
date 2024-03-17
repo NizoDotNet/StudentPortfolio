@@ -2,14 +2,15 @@
 @using Portfolio.Entities
 @using System.Security.Claims
 @inject SignInManager<AppUser> _signInManager;
-
+@inject UserManager<AppUser> _userManager;
 
 <ul class="navbar-nav">
     @if (_signInManager.IsSignedIn(User) &&
          User.Claims
         .Where(c => c.Type == "Role")
-        .Select(c => c.Value == MyClaimValues.SuperAdmin ||
-                     c.Value == MyClaimValues.Teacher) != null)
+        .Where(c => c.Value == MyClaimValues.SuperAdmin ||
+                     c.Value == MyClaimValues.Teacher)
+        .Select(c => c).Count() != 0)
     {
         <li class="nav-item dropdown">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Manage Subject</button>

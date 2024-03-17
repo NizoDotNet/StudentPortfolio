@@ -1,12 +1,10 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Portfolio.Entities;
 using Portfolio.Filter;
 using Portfolio.Models.LabWork;
 using Portfolio.Repository;
-using System.ComponentModel.DataAnnotations;
 
 namespace Portfolio.Pages.LabWorksManager;
 
