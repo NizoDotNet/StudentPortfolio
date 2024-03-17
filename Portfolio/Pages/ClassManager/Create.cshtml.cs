@@ -30,7 +30,7 @@ public class CreateModel(IRepository<Class> _classRepository,
     public async Task OnGetAsync()
     {
         var subs = await _subjectRepository.GetAllAsync();
-        var users = await _userManager.Users.ToListAsync();
+        var users = await _userManager.GetUsersForClaimAsync(new("Role", "Student"));
 
         SubjectsList = new(subs, nameof(Subject.Id), nameof(Subject.Name));
         UsersList = new(users, nameof(AppUser.Id), nameof(AppUser.UserName));

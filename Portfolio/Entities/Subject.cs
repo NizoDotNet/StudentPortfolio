@@ -10,7 +10,6 @@ public class Subject
     [Required]
     public string Name { get; set; }
 
-    public IList<LabWork> LabWorks { get; set; }
     public IList<Class> Classes { get; set; } 
 
     public string TeacherId { get; set; }

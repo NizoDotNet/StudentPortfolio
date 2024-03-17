@@ -9,7 +9,5 @@ public class LabWork
     [Required]
     public string Name { get; set; }
     public bool Completed { get; set; } = false;
-    [Required]
-    public int SubjectId { get; set; }
-    public Subject Subject { get; set; }
+    public IList<AppUser> Users { get; set; } = [];
 }

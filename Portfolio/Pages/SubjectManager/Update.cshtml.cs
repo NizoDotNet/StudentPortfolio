@@ -1,7 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Portfolio.Entities;
 using Portfolio.Filter;
 using Portfolio.Models.Subject;
@@ -10,7 +9,7 @@ using Portfolio.Repository;
 namespace Portfolio.Pages.SubjectManager;
 
 [ModelStateFilter]
-public class UpdateModel(IRepository<Subject> _subjectRepository, 
+public class UpdateModel(IRepository<Subject> _subjectRepository,
     IMapper _mapper) : PageModel
 {
 

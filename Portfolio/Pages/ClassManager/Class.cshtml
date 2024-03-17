@@ -20,7 +20,7 @@
         <a class="" asp-route-id="@std.Id">@std.UserName</a>
         <br />
     }
-    <a class="btn" asp-page="Update">Update</a>
+    <a class="btn" asp-page="Update" asp-route-id="@cls.Id">Update</a>
     <br />
     <form method="post" asp-page-handler="Delete">
         <button class="btn btn-danger">Delete</button>
