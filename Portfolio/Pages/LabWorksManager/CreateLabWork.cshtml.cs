@@ -11,21 +11,14 @@ using System.ComponentModel.DataAnnotations;
 namespace Portfolio.Pages.LabWorksManager;
 
 [ModelStateFilter]
-public class CreateLabWorkModel(IRepository<LabWork> labRepository,
-    IRepository<Subject> subjectRepository,
-    IMapper mapper) : PageModel
+public class CreateLabWorkModel(IRepository<LabWork> _labRepository,
+    IMapper _mapper) : PageModel
 {
-    private readonly IRepository<LabWork> _labRepository = labRepository;
-    private readonly IRepository<Subject> _subjectRepository = subjectRepository;
-    private readonly IMapper _mapper = mapper;
 
-    public SelectList Subjects { get; set; }
     [BindProperty]
     public AddLabWorkViewModel LabWorkVM { get; set; }
     public async Task OnGetAsync()
     {
-        var subs = await _subjectRepository.GetAllAsync();
-        Subjects = new(subs, nameof(Subject.Id), nameof(Subject.Name));
     }
 
     public async Task<IActionResult> OnPostAsync()

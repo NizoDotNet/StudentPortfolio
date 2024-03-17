@@ -12,6 +12,4 @@ public class Subject
 
     public IList<Class> Classes { get; set; } 
 
-    public string TeacherId { get; set; }
-    public AppUser Teacher { get; set; }
 }
