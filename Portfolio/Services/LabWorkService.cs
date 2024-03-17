@@ -37,7 +37,7 @@ public class LabWorkService(ApplicationDbContext db) : IRepository<LabWork>
     public async Task<LabWork> GetAsync(int id)
     {
         return await _db.LabWorks
-            .Include(c => c.Subject)
+            .Include(c => c.Users)
             .FirstOrDefaultAsync(c => c.Id == id);  
     }
 
@@ -48,7 +48,6 @@ public class LabWorkService(ApplicationDbContext db) : IRepository<LabWork>
         {
             lab.Completed = entity.Completed;
             lab.Name = entity.Name;
-            lab.SubjectId = entity.SubjectId;
             await _db.SaveChangesAsync();
 
         }
