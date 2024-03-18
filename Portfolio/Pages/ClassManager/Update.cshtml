@@ -7,6 +7,8 @@
 }
 
 <form method="post" class="form-control">
+    <label asp-for="ClassVM.Id"></label>
+    <input asp-for="ClassVM.Id" readonly/>
     <label class="form-control" asp-for="ClassVM.Name"></label>
     <input asp-for="ClassVM.Name" class="form-control" />
     <br />
@@ -15,12 +17,19 @@
         @for (int i = 0; i < subjects.Count; i++)
         {
             <a class="" asp-page="/SubjectManager/Subject" asp-route-id="@subjects[i].Id">@subjects[i].Name</a>
-            <input value="@subjects[i].Id" asp-for="SubjectChecks[i].subId" />
+            <input value="@subjects[i].Id" asp-for="SubjectChecks[i].subId" readonly hidden/>
             <input type="checkbox" checked asp-for="SubjectChecks[i].checkedSub" />
             <br />
         }
     }
-   
+    <select asp-items="Model.SubjectsList" asp-for="SubjectIds">
+        <option></option>
+    </select>
+    <br />
+    <select asp-items="Model.UsersList" asp-for="UsersIds">
+        <option></option>
+    </select>
+    <br />
     <button class="btn btn-submit">Submit</button>
 </form>
 

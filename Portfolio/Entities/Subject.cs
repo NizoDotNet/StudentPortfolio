@@ -10,6 +10,6 @@ public class Subject
     [Required]
     public string Name { get; set; }
 
-    public IList<Class> Classes { get; set; } 
+    public ICollection<Class> Classes { get; set; } 
 
 }

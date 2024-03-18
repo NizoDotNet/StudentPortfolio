@@ -41,20 +41,13 @@ public class CreateModel(IRepository<Class> _classRepository,
         var cls = _mapper.Map<Class>(ClassVM);
         cls.Students = new List<AppUser>();
         cls.Subjects = new List<Subject>(); 
-        await AddUsersToClassAsync(cls);
+        await _helper.AddUsersToClassAsync(cls, UsersIds, _userManager);
         await _helper.Add(cls.Subjects, _subjectRepository, SubjectIds);
         await _classRepository.CreateAsync(cls);
         return RedirectToPage("Index");
     }
 
-    private async Task AddUsersToClassAsync(Class cls)
-    {
-        for (int i = 0; i < UsersIds.Count; i++)
-        {
-            var user = await _userManager.FindByIdAsync(UsersIds[i]);
-            cls.Students.Add(user);
-        }
-    }
+    
 
 
 

@@ -8,6 +8,6 @@ public class Class
     public int Id { get; set; }
     [Required]
     public string Name { get; set; }
-    public IList<AppUser> Students { get; set; } = [];
-    public IList<Subject> Subjects { get; set; } = [];
+    public ICollection<AppUser> Students { get; set; } = [];
+    public ICollection<Subject> Subjects { get; set; } = [];
 }

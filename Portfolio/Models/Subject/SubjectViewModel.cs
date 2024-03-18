@@ -11,7 +11,7 @@ public class SubjectViewModel
     [Required, Length(3, 30)]
     public string Name { get; set; }
 
-    public IList<ClassViewModel> Classes { get; set; } = [];
+    public ICollection<ClassViewModel> Classes { get; set; } = [];
 
     public AppUser Teacher { get; set; }
 }

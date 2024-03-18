@@ -4,5 +4,5 @@ namespace Portfolio.Repository;
 
 public interface IClassRepository : IRepository<Class>
 {
-    Task RemoveSubjectRange(IList<int> ids);
+    Task RemoveCollectionRangeAsync(Class cls, IList<int> ids);
 }

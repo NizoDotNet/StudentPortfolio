@@ -31,7 +31,7 @@ namespace Portfolio.Migrations
 
                     b.HasIndex("StudentsId");
 
-                    b.ToTable("AppUserClass");
+                    b.ToTable("AppUserClass", (string)null);
                 });
 
             modelBuilder.Entity("AppUserLabWork", b =>
@@ -46,7 +46,7 @@ namespace Portfolio.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("AppUserLabWork");
+                    b.ToTable("AppUserLabWork", (string)null);
                 });
 
             modelBuilder.Entity("ClassSubject", b =>
@@ -61,7 +61,7 @@ namespace Portfolio.Migrations
 
                     b.HasIndex("SubjectsId");
 
-                    b.ToTable("ClassSubject");
+                    b.ToTable("ClassSubject", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -277,7 +277,7 @@ namespace Portfolio.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Classes");
+                    b.ToTable("Classes", (string)null);
                 });
 
             modelBuilder.Entity("Portfolio.Entities.LabWork", b =>
@@ -295,7 +295,7 @@ namespace Portfolio.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LabWorks");
+                    b.ToTable("LabWorks", (string)null);
                 });
 
             modelBuilder.Entity("Portfolio.Entities.Subject", b =>
@@ -315,7 +315,7 @@ namespace Portfolio.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Subjects");
+                    b.ToTable("Subjects", (string)null);
                 });
 
             modelBuilder.Entity("Portfolio.Entities.AppUser", b =>

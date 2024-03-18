@@ -9,5 +9,5 @@ public class LabWork
     [Required]
     public string Name { get; set; }
     public bool Completed { get; set; } = false;
-    public IList<AppUser> Users { get; set; } = [];
+    public ICollection<AppUser> Users { get; set; } = [];
 }

@@ -4,6 +4,6 @@ namespace Portfolio.Entities;
 
 public class AppUser : IdentityUser
 {
-    public IList<Class> Classes { get; set; }
-    public IList<LabWork> LabWorks { get; set; }
+    public ICollection<Class> Classes { get; set; }
+    public ICollection<LabWork> LabWorks { get; set; }
 }

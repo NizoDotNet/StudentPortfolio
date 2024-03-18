@@ -65,15 +65,18 @@ public class ClassService(ApplicationDbContext db) : IClassRepository
     }
     public async Task SaveChangesAsync() => await _db.SaveChangesAsync();
 
-    public async Task RemoveSubjectRange(IList<int> ids)
+    public async Task RemoveCollectionRangeAsync(Class cls, IList<int> ids)
     {
-        var labWorks = await _db
-            .LabWorks
+        var subjects = await _db
+            .Subjects
             .Where(c => ids.Contains(c.Id))
-            .ToListAsync();   
+            .ToListAsync();
 
-
-        _db.LabWorks.RemoveRange(labWorks);
+        foreach (var subject in subjects)
+        {
+            subject.Classes.Remove(cls);
+        }
         await _db.SaveChangesAsync();
     }
+
 }
