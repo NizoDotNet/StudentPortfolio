@@ -5,7 +5,7 @@ using Portfolio.Repository;
 
 namespace Portfolio.Services;
 
-public class ClassService(ApplicationDbContext db) : IRepository<Class>
+public class ClassService(ApplicationDbContext db) : IClassRepository
 {
     private readonly ApplicationDbContext _db = db;
 
@@ -65,4 +65,15 @@ public class ClassService(ApplicationDbContext db) : IRepository<Class>
     }
     public async Task SaveChangesAsync() => await _db.SaveChangesAsync();
 
+    public async Task RemoveSubjectRange(IList<int> ids)
+    {
+        var labWorks = await _db
+            .LabWorks
+            .Where(c => ids.Contains(c.Id))
+            .ToListAsync();   
+
+
+        _db.LabWorks.RemoveRange(labWorks);
+        await _db.SaveChangesAsync();
+    }
 }

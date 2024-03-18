@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Claims;
 using Portfolio.Data;
@@ -77,3 +78,5 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+

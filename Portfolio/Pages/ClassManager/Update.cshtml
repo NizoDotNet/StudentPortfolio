@@ -1,11 +1,26 @@
 ﻿@page "{id}"
+@using Portfolio.Entities
+@using Portfolio.Models.Subject
 @model Portfolio.Pages.ClassManager.UpdateModel
 @{
+    var subjects = Model.ClassVM.Subjects;
 }
 
 <form method="post" class="form-control">
     <label class="form-control" asp-for="ClassVM.Name"></label>
     <input asp-for="ClassVM.Name" class="form-control" />
     <br />
-    
+    @if(subjects != null)
+    {
+        @for (int i = 0; i < subjects.Count; i++)
+        {
+            <a class="" asp-page="/SubjectManager/Subject" asp-route-id="@subjects[i].Id">@subjects[i].Name</a>
+            <input value="@subjects[i].Id" asp-for="SubjectChecks[i].subId" />
+            <input type="checkbox" checked asp-for="SubjectChecks[i].checkedSub" />
+            <br />
+        }
+    }
+   
+    <button class="btn btn-submit">Submit</button>
 </form>
+
