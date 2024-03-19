@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
+using NuGet.Packaging;
 using Portfolio.Entities;
 using Portfolio.Repository;
 
@@ -16,10 +19,11 @@ public class AddToCollection
     }
     public async Task AddUsersToClassAsync(Class cls, List<string> UsersIds, UserManager<AppUser> _userManager)
     {
-        for (int i = 0; i < UsersIds.Count; i++)
-        {
-            var user = await _userManager.FindByIdAsync(UsersIds[i]);
-            cls.Students.Add(user);
-        }
+        var users = await _userManager
+            .Users
+            .Where(c => UsersIds.Contains(c.Id))
+            .ToListAsync();
+
+        cls.Students.AddRange(users);
     }
 }

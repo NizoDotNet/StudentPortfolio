@@ -23,6 +23,8 @@ public class UpdateModel(IClassRepository _classRepository,
     [BindProperty]
     public List<SubjectCheck> SubjectChecks { get; set; }
     [BindProperty]
+    public List<UserCheck> UserCheck { get; set; }
+    [BindProperty]
     public List<int> SubjectIds { get; set; }
     [BindProperty]
     public List<string> UsersIds { get; set; }
@@ -45,14 +47,20 @@ public class UpdateModel(IClassRepository _classRepository,
             .Select(c => c.subId)
             .ToList();
 
+        var usersToRemove = UserCheck
+            .Where(c => !c.checkedUser)
+            .Select (c => c.userId)
+            .ToList();
+
         var cls = await _classRepository.GetAsync(ClassVM.Id);
         await _helper.Add(cls.Subjects, _subjectRepository, SubjectIds);
 
-        await _classRepository.RemoveCollectionRangeAsync(cls, subjectsToRemove);
+        await _classRepository.RemoveSubjectsRangeAsync(cls, subjectsToRemove);
+        cls.Students.Where(c => usersToRemove.Contains(c.Id));
         return RedirectToPage("Class", new { id = ClassVM.Id});
     }
 
-    private async Task GetOptions(Class cls)
+    private async Task GetOptions()
     {
         var subs = await _subjectRepository.GetAllAsync();
         var users = await _userManager.GetUsersForClaimAsync(new("Role", "Student"));
@@ -64,3 +72,5 @@ public class UpdateModel(IClassRepository _classRepository,
 
 
 public record SubjectCheck(int subId, bool checkedSub);
+public record UserCheck(string userId, bool checkedUser);
+
