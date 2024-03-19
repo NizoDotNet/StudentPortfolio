@@ -13,6 +13,8 @@
     <input asp-for="ClassVM.Name" class="form-control" />
     <br />
     
+
+    <label class="form-control"></label>
     @for (int i = 0; i < subjects.Count; i++)
     {
         <a class="" asp-page="/SubjectManager/Subject" asp-route-id="@subjects[i].Id">@subjects[i].Name</a>
@@ -20,7 +22,7 @@
         <input type="checkbox"  checked asp-for="SubjectChecks[i].checkedSub" />
         <br />
     }
-    
+    <label class="form-control">Users</label>
     @for(int i = 0; i < users.Count; i++)
     {
         <a class="" asp-page="/Account/Index" asp-route-id="@users[i].Id">@users[i].UserName</a>
