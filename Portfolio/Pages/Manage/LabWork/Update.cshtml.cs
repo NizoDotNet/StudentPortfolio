@@ -8,7 +8,7 @@ using Portfolio.Models.LabWork;
 using Portfolio.Repository;
 using System.ComponentModel.DataAnnotations;
 
-namespace Portfolio.Pages.Manage.LabWorks;
+namespace Portfolio.Pages.Manage.LabWork;
 [ModelStateFilter]
 public class UpdateModel(IRepository<Entities.LabWork> labRepository,
     IMapper mapper,
@@ -25,7 +25,7 @@ public class UpdateModel(IRepository<Entities.LabWork> labRepository,
     public async Task<IActionResult> OnGetAsync(int id)
     {
         var lab = await _labRepository.GetAsync(id);
-        if(lab == null) return NotFound();
+        if (lab == null) return NotFound();
         LabWorkVM = _mapper.Map<UpdateLabWorkViewModel>(lab);
         var subs = await _subjectRepository.GetAllAsync();
         Subjects = new(subs, nameof(Subject.Id), nameof(Subject.Name));

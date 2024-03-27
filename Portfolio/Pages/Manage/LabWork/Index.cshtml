@@ -1,9 +1,9 @@
 ﻿@page
-@model Portfolio.Pages.Manage.LabWorks.IndexModel
+@model             IndexModel
 @{
 }
 
-<a asp-page="CreateLabWork" class="btn">Add Lab-Work</a>
+<a asp-page="Create" class="btn">Add Lab-Work</a>
 @foreach (var lab in Model.LabWorkVM)
 {
     <table>

@@ -5,11 +5,11 @@ using Portfolio.Entities;
 using Portfolio.Models.LabWork;
 using Portfolio.Repository;
 
-namespace Portfolio.Pages.Manage.LabWorks;
+namespace Portfolio.Pages.Manage.LabWork;
 
-public class IndexModel(IRepository<LabWork> labRepository, IMapper mapper) : PageModel
+public class IndexModel(IRepository<Entities.LabWork> labRepository, IMapper mapper) : PageModel
 {
-    private readonly IRepository<LabWork> _labRepository = labRepository;
+    private readonly IRepository<Entities.LabWork> _labRepository = labRepository;
     private readonly IMapper _mapper = mapper;
 
     [BindProperty]

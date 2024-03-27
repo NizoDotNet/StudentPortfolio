@@ -1,12 +1,11 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Portfolio.Entities;
 using Portfolio.Filter;
 using Portfolio.Models.LabWork;
 using Portfolio.Repository;
 
-namespace Portfolio.Pages.Manage.LabWorks;
+namespace Portfolio.Pages.Manage.LabWork;
 
 [ModelStateFilter]
 public class Create(IRepository<Entities.LabWork> _labRepository,
@@ -21,7 +20,7 @@ public class Create(IRepository<Entities.LabWork> _labRepository,
 
     public async Task<IActionResult> OnPostAsync()
     {
-        var lab = _mapper.Map<LabWork>(LabWorkVM);
+        var lab = _mapper.Map<Entities.LabWork>(LabWorkVM);
         await _labRepository.CreateAsync(lab);
         return Redirect("Index");
     }
