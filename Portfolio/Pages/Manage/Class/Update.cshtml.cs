@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Claims;
 using Portfolio.Entities;
@@ -10,10 +9,8 @@ using Portfolio.Helper;
 using Portfolio.Models.Class;
 using Portfolio.Models.Subject;
 using Portfolio.Repository;
-using System.Collections.Immutable;
-using System.Runtime.CompilerServices;
 
-namespace Portfolio.Pages.ClassManager;
+namespace Portfolio.Pages.Manage.Class;
 
 public class UpdateModel(IClassRepository _classRepository,
     ISubjectRepository _subjectRepository,
@@ -56,14 +53,14 @@ public class UpdateModel(IClassRepository _classRepository,
 
         var cls = await _classRepository.GetAsync(ClassVM.Id);
         var subs = await _subjectRepository.GetAsync(subjectsIds);
-        
+
         var users = await _userManager
             .Users
             .Where(c => usersIds.Contains(c.Id))
             .ToListAsync();
         cls.Students = users;
         cls.Subjects = subs;
-        await _classRepository.SaveChangesAsync();  
+        await _classRepository.SaveChangesAsync();
 
 
         return RedirectToPage("Class", new { id = cls.Id }); ;

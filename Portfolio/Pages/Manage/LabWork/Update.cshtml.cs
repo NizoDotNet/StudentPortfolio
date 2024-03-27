@@ -8,13 +8,13 @@ using Portfolio.Models.LabWork;
 using Portfolio.Repository;
 using System.ComponentModel.DataAnnotations;
 
-namespace Portfolio.Pages.LabWorksManager;
+namespace Portfolio.Pages.Manage.LabWorks;
 [ModelStateFilter]
-public class UpdateModel(IRepository<LabWork> labRepository,
+public class UpdateModel(IRepository<Entities.LabWork> labRepository,
     IMapper mapper,
     IRepository<Subject> subjectRepository) : PageModel
 {
-    private readonly IRepository<LabWork> _labRepository = labRepository;
+    private readonly IRepository<Entities.LabWork> _labRepository = labRepository;
     private readonly IMapper _mapper = mapper;
     private readonly IRepository<Subject> _subjectRepository = subjectRepository;
 
@@ -35,7 +35,7 @@ public class UpdateModel(IRepository<LabWork> labRepository,
 
     public async Task<IActionResult> OnPostAsync()
     {
-        var lab = _mapper.Map<LabWork>(LabWorkVM);
+        var lab = _mapper.Map<Entities.LabWork>(LabWorkVM);
         await _labRepository.UpdateAsync(LabWorkVM.Id, lab);
         return RedirectToPage("Index");
     }

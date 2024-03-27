@@ -5,7 +5,7 @@ using Portfolio.Entities;
 using Portfolio.Models.LabWork;
 using Portfolio.Repository;
 
-namespace Portfolio.Pages.LabWorksManager;
+namespace Portfolio.Pages.Manage.LabWorks;
 
 public class LabWorkModel(IRepository<LabWork> labRepository, IMapper mapper) : PageModel
 {

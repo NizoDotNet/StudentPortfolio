@@ -5,9 +5,9 @@ using Portfolio.Entities;
 using Portfolio.Models.Class;
 using Portfolio.Repository;
 
-namespace Portfolio.Pages.ClassManager;
+namespace Portfolio.Pages.Manage.Class;
 
-public class ClassModel(IRepository<Class> _classRepository, IMapper _mapper) : PageModel
+public class ClassModel(IRepository<Entities.Class> _classRepository, IMapper _mapper) : PageModel
 {
     [BindProperty]
     public ClassViewModel ClassVM { get; set; }

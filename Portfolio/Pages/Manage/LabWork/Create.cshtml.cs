@@ -6,10 +6,10 @@ using Portfolio.Filter;
 using Portfolio.Models.LabWork;
 using Portfolio.Repository;
 
-namespace Portfolio.Pages.LabWorksManager;
+namespace Portfolio.Pages.Manage.LabWorks;
 
 [ModelStateFilter]
-public class CreateLabWorkModel(IRepository<LabWork> _labRepository,
+public class Create(IRepository<Entities.LabWork> _labRepository,
     IMapper _mapper) : PageModel
 {
 

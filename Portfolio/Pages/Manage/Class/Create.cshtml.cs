@@ -10,10 +10,10 @@ using Portfolio.Helper;
 using Portfolio.Models.Class;
 using Portfolio.Repository;
 
-namespace Portfolio.Pages.ClassManager;
+namespace Portfolio.Pages.Manage.Class;
 
 [ModelStateFilter]
-public class CreateModel(IRepository<Class> _classRepository,
+public class CreateModel(IRepository<Entities.Class> _classRepository,
     IMapper _mapper,
     IRepository<Subject> _subjectRepository,
     UserManager<AppUser> _userManager,
@@ -38,7 +38,7 @@ public class CreateModel(IRepository<Class> _classRepository,
 
     public async Task<IActionResult> OnPostAsync()
     {
-        var cls = _mapper.Map<Class>(ClassVM);
+        var cls = _mapper.Map<Entities.Class>(ClassVM);
         cls.Students = new List<AppUser>();
         cls.Subjects = new List<Subject>(); 
         await _helper.AddUsersToClassAsync(cls, UsersIds, _userManager);
