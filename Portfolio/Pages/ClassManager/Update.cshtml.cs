@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Portfolio.Claims;
 using Portfolio.Entities;
 using Portfolio.Helper;
 using Portfolio.Models.Class;
+using Portfolio.Models.Subject;
 using Portfolio.Repository;
 using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
@@ -13,7 +16,7 @@ using System.Runtime.CompilerServices;
 namespace Portfolio.Pages.ClassManager;
 
 public class UpdateModel(IClassRepository _classRepository,
-    IRepository<Subject> _subjectRepository,
+    ISubjectRepository _subjectRepository,
     UserManager<AppUser> _userManager,
     AddToCollection _helper,
     IMapper _mapper) : PageModel
@@ -25,49 +28,47 @@ public class UpdateModel(IClassRepository _classRepository,
     [BindProperty]
     public List<UserCheck> UserCheck { get; set; }
     [BindProperty]
-    public List<int> SubjectIds { get; set; }
+    public List<SubjectViewModel> SubjectsVM { get; set; }
     [BindProperty]
-    public List<string> UsersIds { get; set; }
-    public SelectList SubjectsList { get; set; }
-    public SelectList UsersList { get; set; }
+    public IList<AppUser> Users { get; set; }
     public async Task<IActionResult> OnGetAsync(int id)
     {
         var cls = await _classRepository.GetAsync(id);
-        if(cls == null) return NotFound();
+        if (cls == null) return NotFound();
         ClassVM = _mapper.Map<ClassViewModel>(cls);
-
-        await GetOptions(cls);
+        Users = await _userManager.GetUsersForClaimAsync(new("Role", MyClaimValues.Student));
+        var subjects = await _subjectRepository.GetAllAsync();
+        SubjectsVM = _mapper.Map<List<SubjectViewModel>>(subjects);
         return Page();
     }
 
     public async Task<IActionResult> OnPostAsync()
     {
-        var subjectsToRemove = SubjectChecks
-            .Where(c => !c.checkedSub)
+        var subjectsIds = SubjectChecks
+            .Where(c => c.checkedSub)
             .Select(c => c.subId)
             .ToList();
 
-        var usersToRemove = UserCheck
-            .Where(c => !c.checkedUser)
-            .Select (c => c.userId)
+        var usersIds = UserCheck
+            .Where(c => c.checkedUser)
+            .Select(c => c.userId)
             .ToList();
 
         var cls = await _classRepository.GetAsync(ClassVM.Id);
-        await _helper.Add(cls.Subjects, _subjectRepository, SubjectIds);
+        var subs = await _subjectRepository.GetAsync(subjectsIds);
+        
+        var users = await _userManager
+            .Users
+            .Where(c => usersIds.Contains(c.Id))
+            .ToListAsync();
+        cls.Students = users;
+        cls.Subjects = subs;
+        await _classRepository.SaveChangesAsync();  
 
-        await _classRepository.RemoveSubjectsRangeAsync(cls, subjectsToRemove);
-        cls.Students.Where(c => usersToRemove.Contains(c.Id));
-        return RedirectToPage("Class", new { id = ClassVM.Id});
+
+        return RedirectToPage("Class", new { id = cls.Id }); ;
     }
 
-    private async Task GetOptions()
-    {
-        var subs = await _subjectRepository.GetAllAsync();
-        var users = await _userManager.GetUsersForClaimAsync(new("Role", "Student"));
-
-        SubjectsList = new(subs, nameof(Subject.Id), nameof(Subject.Name));
-        UsersList = new(users, nameof(AppUser.Id), nameof(AppUser.UserName));
-    }
 }
 
 

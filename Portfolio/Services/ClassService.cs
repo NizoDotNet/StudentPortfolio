@@ -81,9 +81,9 @@ public class ClassService(ApplicationDbContext db) : IClassRepository
         await _db.SaveChangesAsync();
     }
 
-    public async Task<Class> GetAsync(int id, bool includeCollections)
+    public async Task<Class> GetAsync(int id, bool includeCollections = true)
     {
-        if(!includeCollections) return await GetAsync(id);
+        if(includeCollections) return await GetAsync(id);
 
         var cls = await _db.Classes.FirstOrDefaultAsync(c => c.Id == id);
         return cls;

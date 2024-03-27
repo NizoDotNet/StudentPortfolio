@@ -42,7 +42,7 @@ public class CreateModel(IRepository<Class> _classRepository,
         cls.Students = new List<AppUser>();
         cls.Subjects = new List<Subject>(); 
         await _helper.AddUsersToClassAsync(cls, UsersIds, _userManager);
-        await _helper.Add(cls.Subjects, _subjectRepository, SubjectIds);
+        await _helper.AddAsync(cls.Subjects, _subjectRepository, SubjectIds);
         await _classRepository.CreateAsync(cls);
         return RedirectToPage("Index");
     }

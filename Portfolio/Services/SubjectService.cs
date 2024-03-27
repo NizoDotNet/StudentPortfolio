@@ -2,6 +2,7 @@
 using Portfolio.Data;
 using Portfolio.Entities;
 using Portfolio.Repository;
+using System.Linq.Expressions;
 
 namespace Portfolio.Services;
 
@@ -40,6 +41,14 @@ public class SubjectService(ApplicationDbContext db) : ISubjectRepository
         return await _db
             .Subjects
             .FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task<List<Subject>> GetAsync(List<int> ids)
+    {
+        return await _db
+            .Subjects
+            .Where(c => ids.Contains(c.Id))
+            .ToListAsync();    
     }
 
     public async Task SaveChangesAsync() => await _db.SaveChangesAsync();

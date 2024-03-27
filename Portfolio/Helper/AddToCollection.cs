@@ -9,7 +9,7 @@ namespace Portfolio.Helper;
 
 public class AddToCollection
 {
-    public async Task Add<T>(ICollection<T> collection, IRepository<T> repository, List<int> ids)
+    public async Task AddAsync<T>(ICollection<T> collection, IRepository<T> repository, List<int> ids)
     {
         for (var i = 0; i < ids.Count; i++)
         {
@@ -26,4 +26,7 @@ public class AddToCollection
 
         cls.Students.AddRange(users);
     }
+
+
+
 }

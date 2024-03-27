@@ -2,44 +2,36 @@
 @using Portfolio.Entities
 @using Portfolio.Models.Subject
 @model Portfolio.Pages.ClassManager.UpdateModel
-@{
-    var subjects = Model.ClassVM.Subjects;
-    var users = Model.ClassVM.Students;
-}
 
-<form method="post" class="form-control">
-    <input asp-for="ClassVM.Id" readonly hidden/>
-    <label class="form-control mb-1" asp-for="ClassVM.Name"></label>
-    <input asp-for="ClassVM.Name" class="form-control" />
-    <br />
-    
 
-    <label class="form-control"></label>
-    @for (int i = 0; i < subjects.Count; i++)
-    {
-        <a class="" asp-page="/SubjectManager/Subject" asp-route-id="@subjects[i].Id">@subjects[i].Name</a>
-        <input class="form-control" value="@subjects[i].Id" asp-for="SubjectChecks[i].subId" readonly hidden />
-        <input type="checkbox"  checked asp-for="SubjectChecks[i].checkedSub" />
+<div class="container">
+    <form method="post" class="form-control">
+        <input asp-for="ClassVM.Id" readonly hidden />
+        <label class="form-control mb-1" asp-for="ClassVM.Name"></label>
+        <input asp-for="ClassVM.Name" class="form-control" />
         <br />
-    }
-    <label class="form-control">Users</label>
-    @for(int i = 0; i < users.Count; i++)
-    {
-        <a class="" asp-page="/Account/Index" asp-route-id="@users[i].Id">@users[i].UserName</a>
-        <input class="form-control" value="@users[i].Id" asp-for="UserCheck[i].userId" readonly hidden />
-        <input type="checkbox" checked asp-for="UserCheck[i].checkedUser" />
-        <br />
-    }
-    <h5>Subjects</h5>
-    <select class="form-control" asp-items="Model.SubjectsList" asp-for="SubjectIds">
-        <option></option>
-    </select>
-    <br />
-    <h5>Students</h5>
-    <select class="form-control" asp-items="Model.UsersList" asp-for="UsersIds">
-        <option></option>
-    </select>
-    <br />
-    <button class="btn btn-submit">Submit</button>
-</form>
+        <div class="row">
+            <div class="col">
+                <label class="form-control">Subjects</label>
+                @for(int i = 0; i < Model.SubjectsVM.Count; i++)
+                {
+                    <input hidden readonly asp-for="SubjectChecks[i].subId" value="@Model.SubjectsVM[i].Id"/>
+                    @Model.SubjectsVM[i].Name
+                    @if (Model.ClassVM.Subjects.Contains(Model.SubjectsVM[i]))
+                    {
+                        <input asp-for="SubjectChecks[i].checkedSub" checked/>
+                    }
+                    else
+                    {
+                        <input asp-for="SubjectChecks[i].checkedSub" />
+                    }
+                    <br />
+                }
+            </div>
+        </div>
+
+        <button class="btn btn-submit">Submit</button>
+    </form>
+</div>
+
 
