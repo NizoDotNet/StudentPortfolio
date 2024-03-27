@@ -24,9 +24,9 @@ public class UpdateModel(IClassRepository _classRepository,
     [BindProperty]
     public ClassViewModel ClassVM { get; set; }
     [BindProperty]
-    public List<SubjectCheck> SubjectChecks { get; set; }
+    public List<Check<int>> SubjectChecks { get; set; }
     [BindProperty]
-    public List<UserCheck> UserCheck { get; set; }
+    public List<Check<string>> UserCheck { get; set; }
     [BindProperty]
     public List<SubjectViewModel> SubjectsVM { get; set; }
     [BindProperty]
@@ -45,13 +45,13 @@ public class UpdateModel(IClassRepository _classRepository,
     public async Task<IActionResult> OnPostAsync()
     {
         var subjectsIds = SubjectChecks
-            .Where(c => c.checkedSub)
-            .Select(c => c.subId)
+            .Where(c => c.check)
+            .Select(c => c.Id)
             .ToList();
 
         var usersIds = UserCheck
-            .Where(c => c.checkedUser)
-            .Select(c => c.userId)
+            .Where(c => c.check)
+            .Select(c => c.Id)
             .ToList();
 
         var cls = await _classRepository.GetAsync(ClassVM.Id);
@@ -72,6 +72,5 @@ public class UpdateModel(IClassRepository _classRepository,
 }
 
 
-public record SubjectCheck(int subId, bool checkedSub);
-public record UserCheck(string userId, bool checkedUser);
+public record Check<T>(T Id, bool check);
 

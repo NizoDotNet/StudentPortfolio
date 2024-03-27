@@ -15,15 +15,32 @@
                 <label class="form-control">Subjects</label>
                 @for(int i = 0; i < Model.SubjectsVM.Count; i++)
                 {
-                    <input hidden readonly asp-for="SubjectChecks[i].subId" value="@Model.SubjectsVM[i].Id"/>
+                    <input hidden readonly asp-for="SubjectChecks[i].Id" value="@Model.SubjectsVM[i].Id"/>
                     @Model.SubjectsVM[i].Name
                     @if (Model.ClassVM.Subjects.Contains(Model.SubjectsVM[i]))
                     {
-                        <input asp-for="SubjectChecks[i].checkedSub" checked/>
+                        <input asp-for="SubjectChecks[i].check" checked/>
                     }
                     else
                     {
-                        <input asp-for="SubjectChecks[i].checkedSub" />
+                        <input asp-for="SubjectChecks[i].check" />
+                    }
+                    <br />
+                }
+            </div>
+            <div class="col">
+                <label class="form-control">Users</label>
+                @for (int i = 0; i < Model.Users.Count; i++)
+                {
+                    <input hidden readonly asp-for="UserCheck[i].Id" value="@Model.Users[i].Id" />
+                    @Model.Users[i].UserName
+                    @if (Model.ClassVM.Students.Contains(Model.Users[i]))
+                    {
+                        <input asp-for="UserCheck[i].check" checked />
+                    }
+                    else
+                    {
+                        <input asp-for="UserCheck[i].check" />
                     }
                     <br />
                 }
